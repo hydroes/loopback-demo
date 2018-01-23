@@ -6,11 +6,11 @@
   "mongodb": {
     "host": "localhost",
     "port": 27017,
-    "url": "mongodb://test:pass@localhost:27017/loopback-demo",
+    "url": "mongodb://root:pass@localhost:27017/loopback-demo",
     "database": "loopback-demo",
     "password": "pass",
     "name": "mongodb",
-    "user": "test",
+    "user": "root",
     "connector": "mongodb"
   }
 }
