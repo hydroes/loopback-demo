@@ -35,9 +35,5 @@
   "Role": {
     "dataSource": "db",
     "public": false
-  },
-  "movies": {
-    "dataSource": "db",
-    "public": true
   }
 }

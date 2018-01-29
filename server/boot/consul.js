@@ -15,6 +15,8 @@ module.exports = function(app, cb) {
    // @todo register the ms name, ip, port and ms health check.
    console.log('boot config', config.host, config.port)
 
+   // console.log('boot model', app.models['consul-agent'])
+
 
   process.nextTick(cb); // Remove if you pass `cb` to an async function yourself
 };
