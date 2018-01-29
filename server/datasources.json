@@ -2,5 +2,11 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "consul": {
+    "name": "consul",
+    "baseURL": "http://localhost:8500",
+    "crud": true,
+    "connector": "rest"
   }
 }
