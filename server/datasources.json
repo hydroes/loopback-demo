@@ -5,8 +5,25 @@
   },
   "consul": {
     "name": "consul",
-    "baseURL": "http://localhost:8500",
-    "crud": true,
-    "connector": "rest"
+    "crud": false,
+    "connector": "rest",
+    "debug": true,
+    "operations": [{
+      "template": {
+        "method": "GET",
+        "url": "http://localhost:8500/v1/catalog/services",
+        "query": {
+          "service": "{service_name}"
+        },
+        "options": {
+          "strictSSL": false,
+          "useQuerystring": true
+        },
+        "responsePath": "$.[0]"
+      },
+      "functions": {
+        "services": ["service_name"]
+      }
+    }]
   }
 }

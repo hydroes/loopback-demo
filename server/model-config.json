@@ -35,5 +35,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "testBaseModel": {
+    "dataSource": "consul",
+    "public": true
   }
 }

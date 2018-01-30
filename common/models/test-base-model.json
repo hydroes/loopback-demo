@@ -1,0 +1,68 @@
+{
+  "name": "testBaseModel",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "getRemoteTest": {
+      "accepts": [
+        {
+          "arg": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Gets the details of the service name",
+          "http": {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": [],
+      "description": "retrieve remote data test",
+      "http": [
+        {
+          "path": "/v1/catalog/services",
+          "verb": "get"
+        },
+        {
+          "path": "/v1/catalog/service/",
+          "verb": "get"
+        }
+      ]
+    },
+    "services": {
+      "accepts": [
+        {
+          "arg": "themain",
+          "type": "string",
+          "required": false,
+          "description": "test main",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [],
+      "description": "get services",
+      "http": [
+        {
+          "path": "services",
+          "verb": "get"
+        },
+        {
+          "path": "people",
+          "verb": "get"
+        }
+      ]
+    }
+  }
+}
