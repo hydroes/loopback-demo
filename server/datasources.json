@@ -24,6 +24,26 @@
       "functions": {
         "services": ["service_name"]
       }
+    },
+    {
+      "template": {
+        "method": "PUT",
+        "url": "http://localhost:8500/v1/agent/service/register",
+        "body": {
+          "ID": "{id}",
+          "Name": "{name}",
+          "Address": "{address}",
+          "Port": "{port}"
+        },
+        "options": {
+          "strictSSL": false,
+          "useQuerystring": false
+        },
+        "responsePath": "$.[0]"
+      },
+      "functions": {
+        "register": ["id", "name", "address", "port"]
+      }
     }]
   }
 }

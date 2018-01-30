@@ -13,7 +13,16 @@ module.exports = function(app, cb) {
    */
 
    // @todo register the ms name, ip, port and ms health check.
-   console.log('boot config', config.host, config.port)
+   try {
+     var registerService = app.models.Consul.register(
+       pkg.name,
+       pkg.name,
+       'http://' + config.host,
+       config.port
+     )
+   } catch (error) {
+     console.log('an error occured:', error)
+   }
 
    // console.log('boot model', app.models['consul-agent'])
 
