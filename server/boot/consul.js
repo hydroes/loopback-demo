@@ -12,7 +12,11 @@ module.exports = function(app, cb) {
    * for more info.
    */
 
-   // @todo register the ms name, ip, port and ms health check.
+   // skip ms registeration if configured to do so
+   if (config.registerService === false) {
+     process.nextTick(cb)
+     return
+   }
    try {
      var registerService = app.models.Consul.register(
        pkg.name,
