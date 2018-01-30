@@ -36,7 +36,7 @@
     "dataSource": "db",
     "public": false
   },
-  "testBaseModel": {
+  "consul": {
     "dataSource": "consul",
     "public": true
   }

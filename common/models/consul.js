@@ -1,16 +1,12 @@
 'use strict';
 
-module.exports = function(Testbasemodel) {
-
-  console.log('Testbasemodel', Testbasemodel)
-
-  Testbasemodel.status = function(cb) {
+module.exports = function(Consul) {
+  Consul.status = function(cb) {
     var date = new Date()
-    console.log('Current time is %s', date.toString());
     var response = date.getTime()
     cb(null, response);
   };
-  Testbasemodel.remoteMethod(
+  Consul.remoteMethod(
     'status', {
       http: {
         path: '/healthcheck',
