@@ -2,7 +2,12 @@
   "restApiRoot": "/api",
   "host": "0.0.0.0",
   "port": 3001,
-  "registerService": false,
+  "serviceDiscovery": {
+    "registerService": true,
+    "healthcheckUrl": "http://localhost:3001/api/consuls/healthcheck",
+    "interval": "220ms",
+    "timeout": "200s"
+  },
   "remoting": {
     "context": false,
     "rest": {

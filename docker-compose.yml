@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+    - "3001:3001"
+    volumes:
+    - .:/code
+    - logvolume01:/var/log
+    links:
+    - consul
+  consul:
+    image: consul
+    ports:
+    - "8500:8500"
+    environment:
+    - CONSUL_CLIENT_INTERFACE='loopbackdemo_default'
+    - CONSUL_BIND_INTERFACE='loopbackdemo_default'
+volumes:
+  logvolume01: {}

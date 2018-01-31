@@ -1,35 +1,40 @@
-'use strict';
+'use strict'
 
 let pkg = require('./../../package.json')
 let config = require('./../config.json')
+let consul = require('consul')({
+  promisify: true
+})
 
-module.exports = function(app, cb) {
-  /*
-   * The `app` object provides access to a variety of LoopBack resources such as
-   * models (e.g. `app.models.YourModelName`) or data sources (e.g.
-   * `app.datasources.YourDataSource`). See
-   * http://docs.strongloop.com/display/public/LB/Working+with+LoopBack+objects
-   * for more info.
-   */
+module.exports = function (app, cb) {
+  // skip ms registration if configured to do so
+  if (config.serviceDiscovery.registerService === false) {
+    process.nextTick(cb)
+    return
+  }
 
-   // skip ms registeration if configured to do so
-   if (config.registerService === false) {
-     process.nextTick(cb)
-     return
-   }
-   try {
-     var registerService = app.models.Consul.register(
-       pkg.name,
-       pkg.name,
-       'http://' + config.host,
-       config.port
-     )
-   } catch (error) {
-     console.log('an error occured:', error)
-   }
-
-   // console.log('boot model', app.models['consul-agent'])
-
-
-  process.nextTick(cb); // Remove if you pass `cb` to an async function yourself
-};
+  // build registeration info
+  // @todo: options.address options.check.http need to be smarter
+  var options = {
+    name: pkg.name,
+    id: pkg.name,
+    tags: ['ob-microservice'],
+    address: 'http://' + config.host,
+    port: config.port,
+    check: {
+      http: config.serviceDiscovery.healthcheckUrl,
+      interval: config.serviceDiscovery.interval,
+      timeout: config.serviceDiscovery.timeout
+    }
+  }
+  console.log('options', options.check.http)
+  // register microservice
+  var consulService = consul.agent.service.register(options)
+  consulService
+    .catch(error => {
+      console.error('consulService: ', error.message)
+    })
+    .then(() => {
+      process.nextTick(cb)
+    })
+}
