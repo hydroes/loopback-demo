@@ -1,0 +1,29 @@
+{
+  "restApiRoot": "/api",
+  "host": "0.0.0.0",
+  "port": 3002,
+  "serviceDiscovery": {
+    "registerService": true,
+    "healthcheckUrl": "http://localhost:3002/api/consuls/healthcheck",
+    "interval": "220ms",
+    "deregistercriticalserviceafter": "1m",
+    "timeout": "5m"
+  },
+  "remoting": {
+    "context": false,
+    "rest": {
+      "handleErrors": false,
+      "normalizeHttpPath": false,
+      "xml": false
+    },
+    "json": {
+      "strict": false,
+      "limit": "100kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "100kb"
+    },
+    "cors": false
+  }
+}
