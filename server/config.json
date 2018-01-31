@@ -6,7 +6,8 @@
     "registerService": true,
     "healthcheckUrl": "http://localhost:3001/api/consuls/healthcheck",
     "interval": "220ms",
-    "timeout": "200s"
+    "deregistercriticalserviceafter": "1m",
+    "timeout": "5m"
   },
   "remoting": {
     "context": false,

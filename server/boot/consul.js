@@ -27,7 +27,7 @@ module.exports = function (app, cb) {
       timeout: config.serviceDiscovery.timeout
     }
   }
-  console.log('options', options.check.http)
+
   // register microservice
   var consulService = consul.agent.service.register(options)
   consulService
