@@ -8,42 +8,44 @@
     "crud": false,
     "connector": "rest",
     "debug": true,
-    "operations": [{
-      "template": {
-        "method": "GET",
-        "url": "http://localhost:8500/v1/catalog/services",
-        "query": {
-          "service": "{service_name}"
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "http://localhost:8500/v1/catalog/services",
+          "query": {
+            "service": "{service_name}"
+          },
+          "options": {
+            "strictSSL": false,
+            "useQuerystring": true
+          },
+          "responsePath": "$"
         },
-        "options": {
-          "strictSSL": false,
-          "useQuerystring": true
-        },
-        "responsePath": "$.[0]"
+        "functions": {
+          "services": ["service_name"]
+        }
       },
-      "functions": {
-        "services": ["service_name"]
-      }
-    },
-    {
-      "template": {
-        "method": "PUT",
-        "url": "http://localhost:8500/v1/agent/service/register",
-        "body": {
-          "ID": "{id}",
-          "Name": "{name}",
-          "Address": "{address}",
-          "Port": "{port}"
+      {
+        "template": {
+          "method": "PUT",
+          "url": "http://localhost:8500/v1/agent/service/register",
+          "body": {
+            "ID": "{id}",
+            "Name": "{name}",
+            "Address": "{address}",
+            "Port": "{port}"
+          },
+          "options": {
+            "strictSSL": false,
+            "useQuerystring": false
+          },
+          "responsePath": "$.[0]"
         },
-        "options": {
-          "strictSSL": false,
-          "useQuerystring": false
-        },
-        "responsePath": "$.[0]"
-      },
-      "functions": {
-        "register": ["id", "name", "address", "port"]
+        "functions": {
+          "register": ["id", "name", "address", "port"]
+        }
       }
-    }]
+    ]
   }
 }
