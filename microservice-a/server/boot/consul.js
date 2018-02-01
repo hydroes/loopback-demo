@@ -1,19 +1,19 @@
 'use strict'
 
-let pkg = require('./../../package.json')
-let config = require('./../config.json')
-let consul = require('consul')({
+const pkg = require('./../../package.json')
+const config = require('./../config.json')
+const consul = require('consul')({
   promisify: true
 })
 
-module.exports = function (app, cb) {
+module.exports = (app, cb) => {
   // skip ms registration if configured to do so
   if (config.serviceDiscovery.registerService === false) {
     process.nextTick(cb)
     return
   }
 
-  // build registeration info
+  // build registration info
   // @todo: options.address options.check.http need to be smarter
   var options = {
     name: pkg.name,

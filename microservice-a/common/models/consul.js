@@ -1,10 +1,13 @@
 'use strict'
 
+const consul = require('consul')({
+  promisify: true
+})
+
 module.exports = function (Consul) {
   Consul.status = cb => {
-    var date = new Date()
-    var response = date.getTime()
-    cb(null, response)
+    let timestamp = new Date().getTime()
+    cb(null, timestamp)
   }
   Consul.remoteMethod('status', {
     http: {
@@ -16,16 +19,25 @@ module.exports = function (Consul) {
       type: 'int'
     }
   })
-  Consul.test = cb => {
-    // get service through rest datasource
-    // let services = Consul.services()
-    // services
-    //   .then(response => {
-    //     cb(null, response)
-    //   })
-    //   .catch(error => {
-    //     cb(null, error)
-    //   })
+  Consul.services = async () => {
+    let catalog = []
+
+    // get available services
+    let services = await consul.catalog.service.list()
+    let servicesList = Object.keys(services)
+
+    // get nodes on each service:
+    for (let i in servicesList) {
+      let nodes = await consul.catalog.service.nodes(servicesList[i])
+      // build service catalog info
+      let serviceData = {
+        serviceName: servicesList[i],
+        nodes: nodes
+      }
+      catalog.push(serviceData)
+    }
+
+    return catalog
   }
   Consul.remoteMethod('services', {
     http: {
@@ -35,7 +47,7 @@ module.exports = function (Consul) {
     },
     returns: {
       arg: 'test',
-      type: 'string'
+      type: 'json'
     }
   })
 }

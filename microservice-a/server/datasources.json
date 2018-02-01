@@ -23,7 +23,7 @@
           "responsePath": "$"
         },
         "functions": {
-          "services": ["service_name"]
+          "services-via-rest": ["service_name"]
         }
       },
       {
