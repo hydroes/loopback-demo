@@ -15,7 +15,7 @@ module.exports = (app, cb) => {
 
   // build registration info
   // @todo: options.address options.check.http need to be smarter
-  var options = {
+  let options = {
     name: pkg.name,
     id: pkg.name,
     tags: ['ob-microservice'],
@@ -29,12 +29,6 @@ module.exports = (app, cb) => {
   }
 
   // register microservice
-  var consulService = consul.agent.service.register(options)
-  consulService
-    .catch(error => {
-      console.error('consulService: ', error.message)
-    })
-    .then(() => {
-      process.nextTick(cb)
-    })
+  consul.agent.service.register(options)
+  process.nextTick(cb)
 }
