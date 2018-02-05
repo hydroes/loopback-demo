@@ -4,8 +4,10 @@
   "port": 3001,
   "serviceDiscovery": {
     "registerService": true,
+    "uniqueServiceName": "microservice-a",
     "healthcheckUrl": "http://localhost:3001/api/consuls/healthcheck",
     "interval": "220ms",
+    "tags": ["ob-microservices"],
     "deregistercriticalserviceafter": "1m",
     "timeout": "5m"
   },

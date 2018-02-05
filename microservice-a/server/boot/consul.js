@@ -7,10 +7,12 @@ const consul = require('consul')({
 })
 
 module.exports = (app, cb) => {
+  // @todo remove this when consul service discovery has been decided
+  process.nextTick(cb)
+  return
   // skip ms registration if configured to do so
   if (config.serviceDiscovery.registerService === false) {
     process.nextTick(cb)
-    return
   }
 
   // build registration info
@@ -18,7 +20,7 @@ module.exports = (app, cb) => {
   let options = {
     name: pkg.name,
     id: pkg.name,
-    tags: ['ob-microservice'],
+    tags: config.tags,
     address: 'http://' + config.host,
     port: config.port,
     check: {
